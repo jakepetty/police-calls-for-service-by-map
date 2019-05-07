@@ -28,14 +28,14 @@ function initMap() {
         marker = new google.maps.Marker({
             map: map,
             icon: {
-                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
             }
         });
         home = new google.maps.Marker({
             position: location,
             map: map,
             icon: {
-                url: "http://maps.google.com/mapfiles/ms/icons/blue.png"
+                url: "https://maps.google.com/mapfiles/ms/icons/blue.png"
             }
         });
         geocoder = new google.maps.Geocoder();
