@@ -14,7 +14,11 @@
     <div class="container-fluid h-100">
         <div class="row h-100">
             <div class="col-md-6" id="map"></div>
-            <div class="col-md-6" id="results"></div>
+            <div class="col-md-6" id="results">
+                <h1>Cedar Rapids Police Calls For Service</h1>
+                <p>Information presented on this website belongs to <a href="http://www.cedar-rapids.org/local_government/departments_g_-_v/police/police_calls_for_service.php">http://www.cedar-rapids.org/local_government/departments_g_-_v/police/police_calls_for_service.php</a></p>
+                <p>No infomation on this website is collected or stored</p>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery.min.js"></script>
