@@ -21,9 +21,7 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
     <script src="js/app.js"></script>
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyByLobYLYqhklGiVYWVuRPbdzhYYkPYO9w&callback=initMap"></script>
 </body>
 
 </html>
