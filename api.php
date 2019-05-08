@@ -4,7 +4,9 @@ class PoliceSearch
     private $headers = [
         'Origin: http://apps.cedar-rapids.org',
         'Host: apps.cedar-rapids.org',
-        'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0'
+        'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36',
+        'referer: http://apps.cedar-rapids.org/policelog',
+        'X-Requested-With: XMLHttpRequest'
     ];
 
     public function get($url, $data)
@@ -24,8 +26,14 @@ class PoliceSearch
 }
 if (!empty($_POST)) {
     $search = new PoliceSearch();
+
+    // Decode Base64 data
     $json = base64_decode($_POST["data"]);
+
+    // Convert JSON to an Array
     $data = json_decode($json, true);
+
+    // Get results
     echo $search->get(isset($data['url']) ? $data['url'] : "/PoliceLog/Home/Search", $data);
 } else {
     echo "Invalid Request";
