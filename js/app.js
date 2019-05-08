@@ -194,7 +194,7 @@ class Map {
             })
             google.maps.event.addListener(this.map, "click", (event) => {
                 // Clear Results
-                this.results.innerHTML = "Loading...";
+                this.results.innerHTML = "Loading..."
                 this.marker.setPosition(event.latLng)
                 this.geocoder.geocode({
                     "latLng": event.latLng
@@ -239,17 +239,35 @@ class Map {
     }
     showResults(callback) {
         this.results.innerHTML = callback
+        // Remove Call ID column to save space
+        this.results.querySelectorAll('.table > thead tr th')[0].remove()
+
+        // Remove address column to save space
+        this.results.querySelectorAll('.table > thead tr th')[2].remove()
+
         // Replace Call Type Code with human readable call type
-        let rows = this.results.querySelectorAll('.table > tbody tr');
+        let rows = this.results.querySelectorAll('.table > tbody tr')
         for (let i = 0; i < rows.length; i++) {
             let row = rows[i]
-            let text = row.childNodes[11].textContent.trim();
-            row.childNodes[11].innerText = codes[text]
+            row.childNodes[1].remove() // Remove address column to save space
+            row.childNodes[6].remove() // Remove Call ID column to save space
+
+            // Replace call type text
+            let text = row.childNodes[9].textContent.trim()
+            row.childNodes[9].innerText = codes[text] ? codes[text] : text
         }
+
         // Update pagination to be bootstrap 4 compatible
         document.querySelectorAll('.pagination li').forEach((el) => {
             el.classList.add('page-item')
         })
+
+        // Add table-hover to table element
+        document.getElementsByClassName('table')[0].classList.add('table-hover')
+
+        // Add thead-dark to thead element
+        document.getElementsByTagName('thead')[0].classList.add('thead-dark')
+
         // Make pagination work
         let self = this
         document.querySelectorAll('.pagination li a').forEach((el) => {
@@ -263,16 +281,16 @@ class Map {
         })
     }
     post(url, data, callback) {
-        var request = new XMLHttpRequest();
-        request.open('POST', url);
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        var request = new XMLHttpRequest()
+        request.open('POST', url)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
         request.onload = () => {
             if (request.status >= 200 && request.status < 400) {
                 callback(request.responseText)
             }
         }
-        request.send("data=" + btoa(JSON.stringify(data)));
+        request.send("data=" + btoa(JSON.stringify(data)))
     }
 }
 let map = new Map()
