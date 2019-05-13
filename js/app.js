@@ -156,8 +156,34 @@ let codes = {
 }
 class Map {
     constructor() {
+        // Define results element
         this.results = document.getElementById("results")
-        navigator.geolocation.getCurrentPosition(this.setupMap.bind(this))
+
+        // Setup Browser Location API
+        navigator.geolocation.getCurrentPosition(this.setupMap.bind(this), this.setupMap.bind(this))
+
+        // Capture form submit event
+        document.getElementById('search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.geocoder.geocode({
+                address: document.getElementById('search-address').value + " Cedar Rapids, IA" // Limit address lookup to Cedar Rapids
+            }, (results, status) => {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        // Set map location
+                        let latLng = results[0].geometry.location
+                        this.map.setCenter(latLng)
+
+                        // Zoom in to location
+                        this.map.setZoom(18)
+
+                        // Get results from API
+                        let street_address = results[0].address_components[0].long_name + " " + results[0].address_components[1].short_name
+                        this.getResults(street_address, latLng)
+                    }
+                }
+            })
+        })
     }
     getScript(src, callback) {
         let el = document.createElement('script')
@@ -168,74 +194,111 @@ class Map {
     }
 
     setupMap(position) {
-        let location = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
+        // Map Options
+        let options = {
+            center: {},
+            zoom: 17
+        }
+        if (position.PERMISSION_DENIED) { // If user denies location sharing
+            options = {
+                center: {
+                    lat: 41.9779,
+                    lng: -91.6656
+                },
+                zoom: 12
+            }
+        } else {
+            options.center = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
         }
         this.getScript("https://maps.googleapis.com/maps/api/js?v=3.34&key=AIzaSyByLobYLYqhklGiVYWVuRPbdzhYYkPYO9w", () => {
+            // Create Info Window
             this.infowindow = new google.maps.InfoWindow()
+
+            // Create Geocoder
             this.geocoder = new google.maps.Geocoder()
-            this.map = new google.maps.Map(document.getElementById("map"), {
-                center: location,
-                zoom: 17
-            })
+
+            // Create Map
+            this.map = new google.maps.Map(document.getElementById("map"), options)
+
+            // Create Home Marker
             this.home = new google.maps.Marker({
-                position: location,
+                position: options.center,
                 map: this.map,
                 icon: {
                     url: "https://maps.google.com/mapfiles/ms/icons/blue.png"
                 }
             })
+
+            // Create Lookup Marker
             this.marker = new google.maps.Marker({
                 map: this.map,
                 icon: {
                     url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
                 }
             })
+
             google.maps.event.addListener(this.map, "click", (event) => {
                 // Clear Results
-                this.results.innerHTML = "Loading..."
-                this.marker.setPosition(event.latLng)
                 this.geocoder.geocode({
-                    "latLng": event.latLng
+                    latLng: event.latLng
                 }, (results, status) => {
                     if (status == google.maps.GeocoderStatus.OK) {
                         if (results[0]) {
-                            let date, month, day, year, street_address, start_date, end_date
-
                             // Geocoded Street Address
-                            street_address = results[0].address_components[0].long_name + " " + results[0].address_components[1].short_name
-                            this.infowindow.setContent(street_address)
-                            this.infowindow.open(this.map, this.marker)
-                            date = new Date()
+                            let street_address = results[0].address_components[0].long_name + " " + results[0].address_components[1].short_name
 
-                            // Month with leading zero
-                            month = date.getMonth()
-                            month = (month + 1)
-                            month = month < 10 ? "0" + month : month
-
-                            // Day with leading zero
-                            day = date.getDate()
-                            day = day < 10 ? "0" + day : day
-
-                            // Year
-                            year = date.getFullYear()
-
-                            // Formatted Start Date
-                            start_date = month + "/" + day + "/" + (year - 1)
-
-                            // Formatted End Date
-                            end_date = month + "/" + day + "/" + year
-                            this.post("/api.php", {
-                                Address: street_address,
-                                StartSearchDate: start_date,
-                                EndSearchDate: end_date
-                            }, this.showResults.bind(this))
+                            // Fetch Results
+                            this.getResults(street_address, event.latLng)
                         }
                     }
                 })
             })
         })
+    }
+    getResults(street_address, geo) {
+        let date, month, day, year, start_date, end_date
+
+        // Clear results and prepare for new data
+        this.results.innerHTML = "Loading..."
+
+        // Set Lookup Marker Location
+        this.marker.setPosition(geo)
+
+        date = new Date()
+
+        // Month with leading zero
+        month = date.getMonth()
+        month = (month + 1)
+        month = month < 10 ? "0" + month : month
+
+        // Day with leading zero
+        day = date.getDate()
+        day = day < 10 ? "0" + day : day
+
+        // Year
+        year = date.getFullYear()
+
+        // Formatted Start Date
+        start_date = month + "/" + day + "/" + (year - 1)
+
+        // Formatted End Date
+        end_date = month + "/" + day + "/" + year
+
+        // Set content for the info window
+        this.infowindow.setContent(street_address)
+
+        // Show the Info Window
+        this.infowindow.open(this.map, this.marker)
+
+        // Post search to the API
+        this.post("/api.php", {
+            Address: street_address,
+            StartSearchDate: start_date,
+            EndSearchDate: end_date
+        }, this.showResults.bind(this))
     }
     showResults(callback) {
         this.results.innerHTML = callback
@@ -281,8 +344,13 @@ class Map {
         })
     }
     post(url, data, callback) {
+        // Create xhr request
         var request = new XMLHttpRequest()
+
+        // Define request method
         request.open('POST', url)
+        
+        // Set header
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
         request.onload = () => {
@@ -290,6 +358,8 @@ class Map {
                 callback(request.responseText)
             }
         }
+
+        // Send json data in base64 format
         request.send("data=" + btoa(JSON.stringify(data)))
     }
 }
