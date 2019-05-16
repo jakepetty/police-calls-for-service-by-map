@@ -7,10 +7,10 @@ body {
   padding: 30px;
 }
 .table {
-  table-layout: fixed;
   margin-top: 20px;
   border-radius: 5px;
   overflow: hidden;
+  font-size: .8rem
 }
 .table .thead-dark th {
   background-color: #363b4a;
