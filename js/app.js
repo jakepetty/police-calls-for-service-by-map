@@ -194,26 +194,252 @@ class MapClass {
     }
 
     setupMap(position) {
-        // Map Options
-        let options = {
-            center: {},
-            zoom: 17
-        }
-        if (position.PERMISSION_DENIED) { // If user denies location sharing
-            options = {
-                center: {
+        this.getScript("https://maps.googleapis.com/maps/api/js?v=3.37&key=AIzaSyByLobYLYqhklGiVYWVuRPbdzhYYkPYO9w", () => {
+            // Map Options
+            let options = {
+                center: {},
+                zoom: 17,
+                backgroundColor: 'none',
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative.country",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#363b4a"
+                            },
+                            {
+                                "lightness": "-30"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative.country",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "simplified"
+                            },
+                            {
+                                "color": "#50b87f"
+                            },
+                            {
+                                "lightness": "15"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative.province",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#363b4a"
+                            },
+                            {
+                                "lightness": "-30"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative.locality",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "simplified"
+                            },
+                            {
+                                "color": "#363b4a"
+                            },
+                            {
+                                "lightness": "30"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "color": "#363b4a"
+                            },
+                            {
+                                "visibility": "simplified"
+                            },
+                            {
+                                "lightness": "-40"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape.man_made",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#363b4a"
+                            },
+                            {
+                                "lightness": "10"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "geometry.fill",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#0069ff"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#0069ff"
+                            },
+                            {
+                                "lightness": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#0097ff"
+                            },
+                            {
+                                "lightness": "-61"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#ffffff"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "elementType": "geometry.fill",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#2e323e"
+                            },
+                            {
+                                "lightness": "5"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#4d5765"
+                            },
+                            {
+                                "lightness": "59"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#363b4a"
+                            },
+                            {
+                                "lightness": "-30"
+                            }
+                        ]
+                    }
+                ]
+            }
+            if (position.PERMISSION_DENIED) { // If user denies location sharing
+                options.center = {
                     lat: 41.9779,
-                    lng: -91.6656
-                },
-                zoom: 12
+                        lng: -91.6656
+                }
+                options.zoom = 13
+            } else {
+                options.center = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                }
             }
-        } else {
-            options.center = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            }
-        }
-        this.getScript("https://maps.googleapis.com/maps/api/js?v=3.34&key=AIzaSyByLobYLYqhklGiVYWVuRPbdzhYYkPYO9w", () => {
             // Create Info Window
             this.infowindow = new google.maps.InfoWindow()
 
@@ -235,6 +461,8 @@ class MapClass {
             // Create Lookup Marker
             this.marker = new google.maps.Marker({
                 map: this.map,
+                width:0,
+                height:0,
                 icon: {
                     url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
                 }
@@ -330,6 +558,10 @@ class MapClass {
 
         // Add thead-dark to thead element
         document.getElementsByTagName('thead')[0].classList.add('thead-dark')
+        if(document.getElementsByTagName('td').length == 2) {
+            document.getElementsByClassName('gm-style-iw-c')[0].classList.add('clean-record')
+            document.getElementsByClassName('gm-style-iw-t')[0].classList.add('clean-record')
+        }
 
         // Make pagination work
         let self = this
@@ -349,7 +581,7 @@ class MapClass {
 
         // Define request method
         request.open('POST', url)
-        
+
         // Set header
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
