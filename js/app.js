@@ -154,7 +154,7 @@ let codes = {
     "WEAPONSF": "WEAPONS FIREARMS",
     "WELFCHK": "WELFARE CHECK"
 }
-class Map {
+class MapClass {
     constructor() {
         // Define results element
         this.results = document.getElementById("results")
@@ -363,4 +363,4 @@ class Map {
         request.send("data=" + btoa(JSON.stringify(data)))
     }
 }
-let map = new Map()
+let map = new MapClass()
