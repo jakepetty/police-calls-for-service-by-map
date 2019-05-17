@@ -89,7 +89,7 @@ let codes = {
     "PICKUP": "PICKUP ITEM\/PROPERTY",
     "PRSNDWN": "PERSON DOWN",
     "PROWLER": "PROWLER",
-    "PUBLICSE": "PUBLIC SERVICE (LOCK OUT\/PEACE\/WELFARE)",
+    "PUBLICSE": "PUBLIC SERVICE",
     "PURSUITF": "FOOT PURSUIT",
     "PURSUITV": "VEHICLE PURSUIT",
     "RECKLESS": "RECKLESS DRIVER",
@@ -461,17 +461,16 @@ class MapClass {
                 position: options.center,
                 map: this.map,
                 icon: {
-                    url: "https://maps.google.com/mapfiles/ms/icons/blue.png"
+                    url: "/img/home-icon.png"
                 }
             })
 
             // Create Lookup Marker
             this.marker = new google.maps.Marker({
                 map: this.map,
-                width: 0,
-                height: 0,
                 icon: {
-                    url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                    scaledSize: new google.maps.Size(0, 0),
+                    url: ' '
                 }
             })
 
@@ -540,39 +539,37 @@ class MapClass {
     showResults(callback) {
         this.loader.style = "display:none"
         this.results.innerHTML = callback
+        if (document.getElementsByTagName('td').length == 2) {
+            document.getElementsByClassName('gm-style-iw-t')[0].classList.add('clean-record')
+        }
 
         // Remove Call ID column to save space
-        this.results.querySelectorAll('.table > thead tr th')[0].remove()
+        this.results.querySelectorAll('.table > thead tr').forEach((el) => {
+            let th = el.querySelectorAll('th');
+            th[0].remove() // Remove Call ID
+            th[2].classList.add('hidden-md') // Time Received Hide On Mobile
+            th[3].remove()                   // Remove Address
+            th[4].classList.add('hidden-xs') // Apt Hide On Mobile
+            th[6].classList.add('hidden-lg') // Case Number Hide On Mobile
+        });
 
-        // Remove address column to save space
-        this.results.querySelectorAll('.table > thead tr th')[2].remove()
-
-        // Replace Call Type Code with human readable call type
-        let rows = this.results.querySelectorAll('.table > tbody tr')
-        for (let i = 0; i < rows.length; i++) {
-            let row = rows[i]
-            row.childNodes[1].remove() // Remove address column to save space
-            row.childNodes[6].remove() // Remove Call ID column to save space
+        this.results.querySelectorAll('.table > tbody tr').forEach((el) => {
+            let td = el.querySelectorAll('td')
+            td[0].remove()                   // Remove Call ID
+            td[2].classList.add('hidden-md') // Time Received Hide On Mobile
+            td[3].remove()                   // Remove Address
+            td[4].classList.add('hidden-xs') // Apt Hide On Mobile
+            td[6].classList.add('hidden-lg') // Case Number Hide On Mobile
 
             // Replace call type text
-            let text = row.childNodes[9].textContent.trim()
-            row.childNodes[9].innerText = codes[text] ? codes[text] : text
-        }
+            let text = td[5].textContent.trim()
+            td[5].innerText = codes[text] ? codes[text] : text
+        });
 
         // Update pagination to be bootstrap 4 compatible
         document.querySelectorAll('.pagination li').forEach((el) => {
             el.classList.add('page-item')
         })
-
-        // Add table-hover to table element
-        document.getElementsByClassName('table')[0].classList.add('table-hover')
-
-        // Add thead-dark to thead element
-        document.getElementsByTagName('thead')[0].classList.add('thead-dark')
-        if (document.getElementsByTagName('td').length == 2) {
-            document.getElementsByClassName('gm-style-iw-c')[0].classList.add('clean-record')
-            document.getElementsByClassName('gm-style-iw-t')[0].classList.add('clean-record')
-        }
 
         // Make pagination work
         let self = this

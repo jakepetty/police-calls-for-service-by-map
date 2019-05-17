@@ -19,6 +19,7 @@
                 <form id="search-form">
                     <input type="text" name="address" id="search-address" class="form-control" placeholder="Enter a street address">
                 </form>
+                
                 <div id="results">
                     <div class="center">
                         <h1>Cedar Rapids Police Calls For Service</h1>

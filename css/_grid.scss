@@ -1,10 +1,51 @@
 .row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  display: flex;
   height: 100%;
   .col {
-    max-height: 100%;
-    min-height: 50%;
     overflow: auto;
+    flex: 1;
+  }
+}
+@media (max-width: $xl) {
+  .row {
+    display: block;
+  }
+  .hidden-xl {
+    display: none;
+  }
+}
+@media (max-width: $lg) {
+  .row {
+    display: block;
+  }
+  .hidden-lg {
+    display: none;
+  }
+}
+
+@media (max-width: $md) {
+  .row {
+    display: block;
+  }
+  .hidden-md {
+    display: none;
+  }
+}
+
+@media (max-width: $sm) {
+  .row {
+    display: block;
+  }
+  .hidden-sm {
+    display: none;
+  }
+}
+
+@media (max-width: $xs) {
+  .row {
+    display: block;
+  }
+  .hidden-xs {
+    display: none;
   }
 }

@@ -5,15 +5,15 @@
   overflow: hidden;
   font-size: 0.8rem;
   border-collapse: collapse;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   tr {
-    border-left: 1px solid #fafafa;
-    border-right: 1px solid #fafafa;
+    border-left: 1px solid $secondary-color;
+    border-right: 1px solid $secondary-color;
   }
-  .thead-dark {
+  thead {
     th {
       color: #fff;
-      background-color: #363b4a;
+      background-color: $primary-color;
     }
   }
   th,
@@ -22,6 +22,6 @@
     padding: 15px;
   }
   tr:nth-child(odd) {
-    background-color: #fafafa;
+    background-color: $secondary-color;
   }
 }

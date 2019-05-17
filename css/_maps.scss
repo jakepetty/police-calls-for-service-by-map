@@ -1,13 +1,14 @@
 #map {
   overflow: hidden;
-  background-color: #363b4a;
-  box-shadow: 0 0 20px #363b4a;
+  min-height: 50%;
+  background-color: $primary-color;
+  box-shadow: 0 0 20px $primary-color;
   // Override InfoWindow Styling
   .gm-style {
     .gm-style-iw {
-      background-color: #f00;
+      background-color: $danger-color;
       &.clean-record {
-        background-color: #0a0;
+        background-color: $clean-color;
       }
       &.gm-style-iw-c {
         padding: 20px !important;
@@ -21,11 +22,18 @@
     }
 
     .gm-style-iw-t {
-      &.clean-record::after {
-        background: #0a0;
+      &.clean-record {
+        .gm-style-iw-c {
+          background: $clean-color;
+        }
+        &::after {
+          background: $clean-color;
+          box-shadow: -2px 2px 2px 0 rgba($clean-color, 0.4);
+        }
       }
       &::after {
-        background: #f00;
+        box-shadow: -2px 2px 2px 0 rgba($danger-color, 0.4);
+        background: $danger-color;
       }
     }
     .gm-ui-hover-effect {

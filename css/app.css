@@ -5,6 +5,7 @@
 
 html,
 body {
+  min-height: 100%;
   height: 100%;
 }
 
@@ -95,9 +96,10 @@ h1 {
 
 #map {
   overflow: hidden;
-  background-color: #363b4a;
-  -webkit-box-shadow: 0 0 20px #363b4a;
-          box-shadow: 0 0 20px #363b4a;
+  min-height: 50%;
+  background-color: #20232c;
+  -webkit-box-shadow: 0 0 20px #20232c;
+          box-shadow: 0 0 20px #20232c;
 }
 
 #map .gm-style .gm-style-iw {
@@ -119,11 +121,19 @@ h1 {
   overflow: hidden !important;
 }
 
-#map .gm-style .gm-style-iw-t.clean-record::after {
+#map .gm-style .gm-style-iw-t.clean-record .gm-style-iw-c {
   background: #0a0;
 }
 
+#map .gm-style .gm-style-iw-t.clean-record::after {
+  background: #0a0;
+  -webkit-box-shadow: -2px 2px 2px 0 rgba(0, 170, 0, 0.4);
+          box-shadow: -2px 2px 2px 0 rgba(0, 170, 0, 0.4);
+}
+
 #map .gm-style .gm-style-iw-t::after {
+  -webkit-box-shadow: -2px 2px 2px 0 rgba(255, 0, 0, 0.4);
+          box-shadow: -2px 2px 2px 0 rgba(255, 0, 0, 0.4);
   background: #f00;
 }
 
@@ -151,13 +161,13 @@ h1 {
 }
 
 .table tr {
-  border-left: 1px solid #fafafa;
-  border-right: 1px solid #fafafa;
+  border-left: 1px solid #f9f9fa;
+  border-right: 1px solid #f9f9fa;
 }
 
-.table .thead-dark th {
+.table thead th {
   color: #fff;
-  background-color: #363b4a;
+  background-color: #20232c;
 }
 
 .table th,
@@ -167,7 +177,7 @@ h1 {
 }
 
 .table tr:nth-child(odd) {
-  background-color: #fafafa;
+  background-color: #f9f9fa;
 }
 
 .pagination {
@@ -209,16 +219,61 @@ h1 {
 }
 
 .row {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(30rem, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   height: 100%;
 }
 
 .row .col {
-  max-height: 100%;
-  min-height: 50%;
   overflow: auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+@media (max-width: 1172px) {
+  .row {
+    display: block;
+  }
+  .hidden-xl {
+    display: none;
+  }
+}
+
+@media (max-width: 890px) {
+  .row {
+    display: block;
+  }
+  .hidden-lg {
+    display: none;
+  }
+}
+
+@media (max-width: 780px) {
+  .row {
+    display: block;
+  }
+  .hidden-md {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .row {
+    display: block;
+  }
+  .hidden-sm {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .row {
+    display: block;
+  }
+  .hidden-xs {
+    display: none;
+  }
 }
 /*# sourceMappingURL=app.css.map */
