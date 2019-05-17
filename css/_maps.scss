@@ -1,0 +1,35 @@
+#map {
+  overflow: hidden;
+  background-color: #363b4a;
+  box-shadow: 0 0 20px #363b4a;
+  // Override InfoWindow Styling
+  .gm-style {
+    .gm-style-iw {
+      background-color: #f00;
+      &.clean-record {
+        background-color: #0a0;
+      }
+      &.gm-style-iw-c {
+        padding: 20px !important;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        .gm-style-iw-d {
+          overflow: hidden !important;
+        }
+      }
+    }
+
+    .gm-style-iw-t {
+      &.clean-record::after {
+        background: #0a0;
+      }
+      &::after {
+        background: #f00;
+      }
+    }
+    .gm-ui-hover-effect {
+      display: none !important;
+    }
+  }
+}

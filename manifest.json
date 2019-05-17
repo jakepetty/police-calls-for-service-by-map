@@ -1,0 +1,22 @@
+{
+    "short_name": "Calls For Service",
+    "name": "Police Calls For Servce",
+    "display": "standalone",
+    "start_url": "/",
+    "theme_color": "#363b4a",
+    "background_color": "#363b4a",
+    "orientation": "portrait",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "/img/icon.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/img/icon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

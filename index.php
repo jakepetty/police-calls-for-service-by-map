@@ -6,25 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Police Calls For By Map</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
 </head>
 
 <body>
-    <div class="container-fluid h-100">
-        <div class="row h-100">
-            <div class="col-md-6" id="map"></div>
-            <div class="col-md-6">
-                <div class="p-5">
-                    <form id="search-form">
-                        <div class="form-group mt-3">
-                            <input type="text" name="address" id="search-address" class="form-control" placeholder="Enter the street address you wish to lookup">
-                        </div>
-                    </form>
-                    <div id="results">
+    <div class="row">
+        <div class="col" id="map"></div>
+        <div class="col">
+            <div class="pad">
+                <form id="search-form">
+                    <input type="text" name="address" id="search-address" class="form-control" placeholder="Enter a street address">
+                </form>
+                <div id="results">
+                    <div class="center">
                         <h1>Cedar Rapids Police Calls For Service</h1>
-                        <p>Information presented on this website belongs to <a href="http://www.cedar-rapids.org/local_government/departments_g_-_v/police/police_calls_for_service.php">Cedar Rapids</a>. No infomation is collected or stored.</p>
+                        <p>Information presented on this website belongs to <a href="http://www.cedar-rapids.org/local_government/departments_g_-_v/police/police_calls_for_service.php" target="_blank" rel="noopener noreferrer">Cedar Rapids</a>. No infomation is collected or stored.</p>
                     </div>
+                </div>
+                <div id="loader" class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
                 </div>
             </div>
         </div>

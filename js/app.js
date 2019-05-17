@@ -156,6 +156,9 @@ let codes = {
 }
 class MapClass {
     constructor() {
+        this.setupServiceWorker();
+        this.loader = document.getElementById("loader");
+
         // Define results element
         this.results = document.getElementById("results")
 
@@ -185,11 +188,15 @@ class MapClass {
             })
         })
     }
+    setupServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+        }
+    }
     getScript(src, callback) {
         let el = document.createElement('script')
         el.onload = callback
         el.src = src
-
         document.body.appendChild(el)
     }
 
@@ -431,7 +438,7 @@ class MapClass {
             if (position.PERMISSION_DENIED) { // If user denies location sharing
                 options.center = {
                     lat: 41.9779,
-                        lng: -91.6656
+                    lng: -91.6656
                 }
                 options.zoom = 13
             } else {
@@ -461,8 +468,8 @@ class MapClass {
             // Create Lookup Marker
             this.marker = new google.maps.Marker({
                 map: this.map,
-                width:0,
-                height:0,
+                width: 0,
+                height: 0,
                 icon: {
                     url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
                 }
@@ -490,7 +497,9 @@ class MapClass {
         let date, month, day, year, start_date, end_date
 
         // Clear results and prepare for new data
-        this.results.innerHTML = "Loading..."
+        this.results.innerHTML = ""
+        this.loader.style = "display:block";
+
 
         // Set Lookup Marker Location
         this.marker.setPosition(geo)
@@ -529,7 +538,9 @@ class MapClass {
         }, this.showResults.bind(this))
     }
     showResults(callback) {
+        this.loader.style = "display:none"
         this.results.innerHTML = callback
+
         // Remove Call ID column to save space
         this.results.querySelectorAll('.table > thead tr th')[0].remove()
 
@@ -558,7 +569,7 @@ class MapClass {
 
         // Add thead-dark to thead element
         document.getElementsByTagName('thead')[0].classList.add('thead-dark')
-        if(document.getElementsByTagName('td').length == 2) {
+        if (document.getElementsByTagName('td').length == 2) {
             document.getElementsByClassName('gm-style-iw-c')[0].classList.add('clean-record')
             document.getElementsByClassName('gm-style-iw-t')[0].classList.add('clean-record')
         }
