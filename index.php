@@ -23,7 +23,7 @@
                 <div id="results">
                     <div class="center">
                         <h1>Cedar Rapids Police Calls For Service</h1>
-                        <p>Information presented on this website belongs to <a href="http://www.cedar-rapids.org/local_government/departments_g_-_v/police/police_calls_for_service.php" target="_blank" rel="noopener noreferrer">Cedar Rapids</a>. No infomation is collected or stored.</p>
+                        <p>Information presented on this website belongs to <a href="http://www.cedar-rapids.org/local_government/departments_g_-_v/police/police_calls_for_service.php" target="_blank" rel="noopener noreferrer">Cedar Rapids</a>. No information is collected or stored.</p>
                     </div>
                 </div>
                 <div id="loader" class="spinner">
