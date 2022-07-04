@@ -10,7 +10,7 @@ if (isset($_POST["data"])) {
     $data = json_decode($json, true);
 
     // Get results
-    echo $search->get(isset($data['url']) ? $data['url'] : "/PoliceLog/Home/Search", $data);
+    echo $search->get(isset($data['url']) ? $data['url'] : "/PoliceLogs/Home/Search", $data);
 } else {
     echo "Access Denied";
 }
