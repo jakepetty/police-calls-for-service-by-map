@@ -1,0 +1,9 @@
+@keyframes colorFade {
+    0%,
+    100% {
+        background-color: revert-layer;
+    }
+    50% {
+        background-color: red;
+    }
+}

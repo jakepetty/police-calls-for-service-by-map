@@ -3,7 +3,6 @@
     display: flex;
     border-radius: 5px;
     list-style: none;
-    float: right;
     .page-item {
         display: inline-block;
         &:first-child {
@@ -21,6 +20,10 @@
                 color: #fff;
                 background-color: #007bff;
                 border-color: #007bff;
+                cursor: default;
+                &:hover {
+                    background-color: #007bff;
+                }
             }
         }
         .page-link {
@@ -29,9 +32,12 @@
             padding: 0.5rem 0.75rem;
             margin-left: -1px;
             line-height: 1.25;
-            color: #007bff;
-            background-color: #fff;
-            border: 1px solid #dee2e6;
+            color: #fff;
+            background-color: #20232c;
+            border: 1px solid #20262d;
+            &:hover {
+                background-color: #2b2f3b;
+            }
         }
     }
 }

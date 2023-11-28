@@ -1,0 +1,16 @@
+.form-control {
+    padding: 20px;
+    width: 100%;
+    border-radius: 5px;
+    color: #fff;
+    border: 1px solid #20262d;
+    background-color: #13171b;
+    text-align: center;
+    font-size: 1.5rem;
+    &:active {
+        border-color: #06f;
+    }
+    &:hover {
+        border-color: #06f;
+    }
+}

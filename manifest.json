@@ -9,12 +9,12 @@
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "/img/icon.png",
+            "src": "/src/img/icon.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/img/icon.png",
+            "src": "/src/img/icon.png",
             "type": "image/png",
             "sizes": "512x512"
         }

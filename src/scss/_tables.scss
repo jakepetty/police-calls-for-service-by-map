@@ -1,0 +1,43 @@
+table:not([class]) {
+    display: none;
+}
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 0.8rem;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    tr {
+        border: none;
+    }
+    thead {
+        background-color: #000;
+        th {
+            color: #fff;
+        }
+    }
+    th,
+    td {
+        text-align: left;
+        padding: 15px;
+    }
+    &.table-striped {
+        tr {
+            td {
+                background-color: #363b49;
+            }
+            &.bad {
+                td {
+                    animation: colorFade 5s infinite; /* Adjust the duration as needed */
+                }
+            }
+            &:nth-child(odd) {
+                td {
+                    background-color: #20262d;
+                }
+            }
+        }
+    }
+}

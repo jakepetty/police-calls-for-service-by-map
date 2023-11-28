@@ -5,6 +5,7 @@ let codes = {
     ACCPRT: "ACCIDENT (REPORT ONLY)",
     ACCPD: "ACCIDENT PD",
     ACCPI: "ACCIDENT PI",
+    ASSTOTHE: "ASSISTANCE OTHER",
     ACCUNK: "ACCIDENT UNKNOWN INJURY",
     ADMINIST: "ADMIN DOCUMENT LOST OR FOUND MSG TRANSPORT",
     ALERT1: "AIRPORT ALERT 1",
@@ -154,6 +155,7 @@ let codes = {
     WEAPONSF: "WEAPONS FIREARMS",
     WELFCHK: "WELFARE CHECK"
 };
+let badList = ["WEAPONSF", "DRUGS", "BURGLARY", "DAMAGEVA", "SHOOTING", "STABBING", "HOMICID", "FIGHTWEA", "DOMESTIC", "DISTWEAP", "DISTNOIS", "DISTDOME", "DIST", "THEFT", "DISTURBN", "ASSLTSEX", "ASSAULT REPORT"];
 class MapClass {
     constructor() {
         this.setupServiceWorker();
@@ -551,17 +553,24 @@ class MapClass {
         this.results.innerHTML = callback;
         if (document.getElementsByTagName("td").length == 22) {
             document.getElementsByClassName("gm-style-iw-t")[0].classList.add("clean-record");
+        } else {
+            document.getElementsByClassName("gm-style-iw-t")[0].classList.add("bad-record");
         }
 
-        var mark = document.createElement("small");
+        // Count Reports and append them inside the Google Maps tooltip
+        let report_count = document.getElementById("report-count") || document.createElement("small");
         let count = document.getElementsByClassName("table")[0].rows.length - 1;
-        if (count > 0) {
-            mark.innerText = count + " Report" + (count > 1 ? "s" : "") + " Found";
+        if (count >= 25) {
+            report_count.innerText = count + " or More Report" + (count > 1 ? "s" : "") + " Found";
+        } else if (count > 0) {
+            report_count.innerText = count + " Report" + (count > 1 ? "s" : "") + " Found";
         } else {
-            mark.innerText = `Clean Record`;
+            report_count.innerText = `Clean Record`;
         }
-        
-        document.getElementsByClassName("gm-style-iw-d")[0].append(mark);
+        report_count.id = "report-count";
+
+        document.getElementsByClassName("gm-style-iw-d")[0].append(report_count);
+
         // Remove Call ID column to save space
         this.results.querySelectorAll(".table > thead tr").forEach((el) => {
             let th = el.querySelectorAll("th");
@@ -583,6 +592,9 @@ class MapClass {
             // Replace call type text
             let text = td[5].textContent.trim();
             td[5].innerText = codes[text] ? codes[text] : text;
+            if (badList.includes(text)) {
+                el.classList.add("bad");
+            }
         });
 
         // Update pagination to be bootstrap 4 compatible
