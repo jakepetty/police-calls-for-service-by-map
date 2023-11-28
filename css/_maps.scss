@@ -11,7 +11,7 @@
                 background-color: $clean-color;
                 .gm-style-iw-tc {
                     &::after {
-                        background: $clean-color!important;
+                        background: $clean-color !important;
                     }
                 }
             }
@@ -42,7 +42,7 @@
                 }
                 .gm-style-iw-tc {
                     &::after {
-                        background: $clean-color!important;
+                        background: $clean-color !important;
                     }
                 }
             }
@@ -50,12 +50,19 @@
                 box-shadow: -2px 2px 2px 0 rgba($danger-color, 0.4);
                 background: $danger-color;
             }
+            .gm-style-iw-d {
+                small {
+                    text-align: center;
+                    display: block;
+                }
+            }
             .gm-style-iw-tc {
                 &::after {
                     background: $danger-color;
                 }
             }
         }
+
         .gm-ui-hover-effect {
             display: none !important;
         }
