@@ -11,7 +11,7 @@
                 background-color: $clean-color;
                 .gm-style-iw-tc {
                     &::after {
-                        background-color: $clean-color;
+                        background: $clean-color!important;
                     }
                 }
             }
@@ -26,7 +26,7 @@
             }
             .gm-style-iw-tc {
                 &::after {
-                    background-color: $danger-color;
+                    background: $danger-color;
                 }
             }
         }
