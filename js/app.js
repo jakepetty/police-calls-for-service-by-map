@@ -553,9 +553,9 @@ class MapClass {
             document.getElementsByClassName("gm-style-iw-t")[0].classList.add("clean-record");
             var mark = document.createElement("small");
             let count = document.getElementsByClassName("table")[0].rows.length - 1;
-            if(count > 0){
-                mark.innerText = `${count} Report${count>1 ? "s": ""} Found`;
-            }else{
+            if (count > 0) {
+                mark.innerText = count + " Report" + (count > 1 ? "s" : "") + " Found";
+            } else {
                 mark.innerText = `Clean Record`;
             }
             document.getElementsByClassName("gm-style-iw-d")[0].append(mark);
