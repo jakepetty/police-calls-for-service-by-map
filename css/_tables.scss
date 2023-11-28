@@ -1,27 +1,30 @@
+table:not([class]) {
+    display: none;
+}
 .table {
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 5px;
-  overflow: hidden;
-  font-size: 0.8rem;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  tr {
-    border-left: 1px solid $secondary-color;
-    border-right: 1px solid $secondary-color;
-  }
-  thead {
-    th {
-      color: #fff;
-      background-color: $primary-color;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 0.8rem;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    tr {
+        border-left: 1px solid $secondary-color;
+        border-right: 1px solid $secondary-color;
     }
-  }
-  th,
-  td {
-    text-align: left;
-    padding: 15px;
-  }
-  tr:nth-child(odd) {
-    background-color: $secondary-color;
-  }
+    thead {
+        th {
+            color: #fff;
+            background-color: $primary-color;
+        }
+    }
+    th,
+    td {
+        text-align: left;
+        padding: 15px;
+    }
+    tr:nth-child(odd) {
+        background-color: $secondary-color;
+    }
 }
