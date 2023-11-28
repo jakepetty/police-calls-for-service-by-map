@@ -539,8 +539,8 @@ class MapClass {
     showResults(callback) {
         this.loader.style = "display:none"
         this.results.innerHTML = callback
-        if (document.getElementsByTagName('td').length == 2) {
-            document.getElementsByClassName('gm-style-iw-c')[0].classList.add('clean-record')
+        if (document.getElementsByTagName('td').length == 22) {
+            document.getElementsByClassName('gm-style-iw-t')[0].classList.add('clean-record')
         }
 
         // Remove Call ID column to save space
